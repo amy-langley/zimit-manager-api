@@ -1,15 +1,36 @@
 [project]
 name = "zimit-manager"
 version = "0.1.0"
-description = "Default template for PDM package"
+description = "zimit manager"
 authors = [
     {name = "Amy Langley", email = "amy.a.langley@gmail.com"},
 ]
-dependencies = []
-requires-python = "==3.12.*"
+dependencies = ["fastapi[standard]>=0.115.12", "sqlmodel>=0.0.24", "inject>=5.2.1", "environs>=14.1.1", "docker>=7.1.0"]
+requires-python = ">=3.12"
 readme = "README.md"
 license = {text = "MIT"}
 
+[project.scripts]
+cli = "main:run"
 
-[tool.pdm]
-distribution = false
+[dependency-groups]
+dev = [
+    "mypy>=1.15.0",
+    "pytest>=8.3.5",
+    "black>=25.1.0",
+    "factory-boy>=3.3.3",
+    "flake8>=7.2.0",
+    "isort>=6.0.1",
+    "pre-commit>=4.2.0",
+    "types-docker>=7.1.0.20250416",
+    "pytest-mock>=3.14.0",
+]
+
+[tool.pylint]
+disable = ["C0114", "C0115", "C0116", "W0511"]
+
+[tool.mypy]
+implicit_optional = true
+
+[tool.isort]
+profile = "black"

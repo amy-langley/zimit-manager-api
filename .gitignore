@@ -1,2 +1,13 @@
-**/__pycache__/*
-.venv/*
+**/__pycache__
+.pytest_cache
+.venv
+dist
+.pdm-python
+**/*.egg-info/
+.mypy_cache
+.vscode
+**/*.db
+**/*.db-journal
+output
+var
+*.code-workspace

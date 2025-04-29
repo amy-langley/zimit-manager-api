@@ -1,0 +1,10 @@
+[flake8]
+# do not lint these files
+exclude =
+    .mypy_cache
+    .pytest_cache
+    .venv
+    .vscode
+
+# we use black to manage line length
+extend-ignore = E501
