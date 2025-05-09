@@ -2,7 +2,11 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session
 
 from zimit_manager import db
-from zimit_manager.models import ZimitExecutionAPI, ZimitExecutionProgress
+from zimit_manager.models import (
+    ZimitExecutionAPI,
+    ZimitExecutionAPIWithTask,
+    ZimitExecutionProgress,
+)
 from zimit_manager.server.util import get_session
 from zimit_manager.services.zimit_service import get_progress
 
@@ -17,7 +21,7 @@ def get_executions(session: Session = Depends(get_session)):
     return db.executions.get_executions(session)
 
 
-@router.get("/{execution_id}", response_model=ZimitExecutionAPI)
+@router.get("/{execution_id}", response_model=ZimitExecutionAPIWithTask)
 def get_execution(*, session: Session = Depends(get_session), execution_id: int):
     execution = db.executions.get_execution_by_id(session, execution_id)
     if execution is None:

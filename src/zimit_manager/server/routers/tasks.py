@@ -8,6 +8,7 @@ from zimit_manager.models import (
     ZimitExecutionAPI,
     ZimitExecutionCreate,
     ZimitTaskAPI,
+    ZimitTaskAPIWithExecutions,
     ZimitTaskCreate,
 )
 from zimit_manager.server.util import get_session
@@ -31,7 +32,7 @@ def get_tasks(*, session: Session = Depends(get_session)):
     return db.tasks.get_tasks(session)
 
 
-@router.get("/{task_id}", response_model=ZimitTaskAPI)
+@router.get("/{task_id}", response_model=ZimitTaskAPIWithExecutions)
 def get_task(*, session: Session = Depends(get_session), task_id: int):
     task = db.tasks.get_task_by_id(session, task_id)
     if task is None:

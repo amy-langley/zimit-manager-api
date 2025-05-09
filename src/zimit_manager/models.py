@@ -52,10 +52,10 @@ class ZimitExecution(ZimitExecutionBase, table=True):
 
 class ZimitExecutionAPI(ZimitExecutionBase):
     container_id: str | None
+    id: int
     result_link: str | None
     started: datetime.datetime = Field(default=datetime.datetime.now(datetime.UTC))
     status: ExecutionStatus = Field(default=ExecutionStatus.PROCESSING)
-    id: int
 
 
 class ZimitExecutionProgress(SQLModel):
@@ -63,3 +63,11 @@ class ZimitExecutionProgress(SQLModel):
     crawled: int
     pending: int
     failed: int
+
+
+class ZimitTaskAPIWithExecutions(ZimitTaskAPI):
+    executions: list[ZimitExecutionAPI] = []
+
+
+class ZimitExecutionAPIWithTask(ZimitExecutionAPI):
+    task: ZimitTaskAPI | None = None

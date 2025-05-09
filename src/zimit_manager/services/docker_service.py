@@ -1,19 +1,19 @@
 import json
-from typing import Callable, Dict, List
+from typing import Callable
 
 import docker
 from docker.models.containers import Container
 
 
 def run_attached(
-    container_image: str, container_command: str | List[str], **kwargs
+    container_image: str, container_command: str | list[str], **kwargs
 ) -> str:
     client = docker.from_env()
     return str(client.containers.run(container_image, container_command, **kwargs))
 
 
 def run_detached(
-    container_image: str, container_comannd: str | List[str], **kwargs
+    container_image: str, container_comannd: str | list[str], **kwargs
 ) -> Container:
     client = docker.from_env()
     return client.containers.run(
@@ -25,7 +25,7 @@ def get_logs(
     container_name_or_id: str,
     lines: int = 0,
     log_filter: Callable[[str], bool] = lambda _: True,
-) -> List[Dict]:
+) -> list[dict]:
     client = docker.from_env()
     container = client.containers.get(container_name_or_id)
 
